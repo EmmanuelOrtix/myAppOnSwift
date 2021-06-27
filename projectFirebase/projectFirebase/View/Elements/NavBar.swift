@@ -8,13 +8,43 @@
 import SwiftUI
 
 struct NavBar: View {
+    
+    @Binding var index: String
+    @Binding var menu: Bool
+    
+    var device = UIDevice.current.userInterfaceIdiom
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        HStack {
+            Text("My Games")
+                .font(.title)
+                .bold()
+                .foregroundColor(.white)
+                .font(.system(size: device == .phone ? 25 : 35))
+            Spacer()
+            
+            if(device == .pad){
+                //menu ipad
+                HStack(spacing: 25){
+                    ButtonView(index: $index, menu: $menu, title: "Xbox one")
+                    ButtonView(index: $index, menu: $menu, title: "Xbox series S")
+                    ButtonView(index: $index, menu: $menu, title: "Xbox series X")
+                }
+            }else{
+                //menu iphone
+                Button(action: {
+                    withAnimation {
+                        menu.toggle()
+                    }
+                }){
+                    Image(systemName: "line.horizontal.3")
+                        .font(.system(size: 26))
+                        .foregroundColor(.white)
+                }
+            }
+        }
+        .padding()
+        .background(Color.purple)
     }
 }
 
-struct NavBar_Previews: PreviewProvider {
-    static var previews: some View {
-        NavBar()
-    }
-}

@@ -8,13 +8,22 @@
 import SwiftUI
 
 struct ButtonView: View {
+    
+    @Binding var index: String
+    @Binding var menu: Bool
+    var title: String
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Button(action: {
+            withAnimation{
+                index = title
+            }
+        }){
+            Text(title)
+                .font(.title)
+                .fontWeight(index == title ? .bold : .none)
+                .foregroundColor(index == title ? .white : Color.white.opacity(0.6))
+        }
     }
 }
 
-struct ButtonView_Previews: PreviewProvider {
-    static var previews: some View {
-        ButtonView()
-    }
-}
